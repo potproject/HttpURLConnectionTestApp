@@ -1,13 +1,13 @@
 package com.example.httpurlconnectiontestapp;
 
-
-
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements View.OnClickListener{
 	public URLConnectionAsyncTask URLConnectionTask;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -50,10 +50,13 @@ public class MainActivity extends Activity {
 		//ここからの処理は、URLConnectionAsyncTaskクラスで行います。
 		//URLConnectionAsyncTask.javaを参照してください。
 		// URLConnectionAsyncTaskの生成
-		URLConnectionTask = new URLConnectionAsyncTask(this);
+		URLConnectionTask = new URLConnectionExtend(this);
 		//executeで非同期処理開始
 		URLConnectionTask.execute("http://sleepingdragon.potproject.net/api.php?" +
         			"get=homeselect&UserId=User20150528s4KV2d&TeamId=Team20150528RazMk4");
+		// クリックイベントを取得したいボタン
+		findViewById(R.id.button).setOnClickListener(this);
+
 		
 	}
 
@@ -74,5 +77,15 @@ public class MainActivity extends Activity {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+
+	@Override
+	public void onClick(View view) {
+		// TODO Auto-generated method stub
+	    switch (view.getId()) {
+        case R.id.button:
+        	Intent intent = new Intent(MainActivity.this, SubActivity.class);
+        	startActivity(intent);
+	    }
 	}
 }

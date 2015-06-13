@@ -4,11 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import org.json.JSONException;
-import org.json.JSONObject;
-import android.app.Activity;
 import android.os.AsyncTask;
-import android.widget.TextView;
 /*
  * AsyncTask<型1, 型2,型3>
    * 　　めんどくさいけどちゃんと設定しないとエラーが起きます
@@ -24,12 +20,12 @@ import android.widget.TextView;
  *   ※ それぞれ不要な場合は、Voidを設定すれば良い
  */
 public class URLConnectionAsyncTask extends AsyncTask<String, Void, String> {
-	private Activity useActivity;
+
 	//コンストラクタ
 	//Activityを使うためここで紐づけします
 	//useActivity変数に使用するActivityを設定
-	public URLConnectionAsyncTask(Activity activity){
-		this.useActivity = activity;
+	public URLConnectionAsyncTask(){
+
 	}
 	//ここでOverrideして使用できるメゾット一覧
 	//onPreExecute() :
@@ -86,34 +82,7 @@ public class URLConnectionAsyncTask extends AsyncTask<String, Void, String> {
 	//ここの部分の振る舞いを変更したい時は、extendを使って個別に拡張すればいいです
     @Override
     protected void onPostExecute(String result) {
-    	//ここから、json形式で取得したものをパース(解析)し、適切に取り出します
-        // JSONObject に変換します
-        JSONObject json;
-        String jsonTeamName="";
-        String jsonTeamPunishmentNumber="";
-        String jsonSmokinghistoryPerformanceNumberTeamSum="";
-        //try/catchしないと駄目っぽい
-		try {
-			//JSONObject型に変換
-			json = new JSONObject(result);
-			// TeamNameを取得
-	        jsonTeamName = json.getString("TeamName");
-	        // TeamPunishmentNumberを取得
-	        jsonTeamPunishmentNumber = json.getString("TeamPunishmentNumber");
-	        // SmokinghistoryPerformanceNumberTeamSumを取得
-	        jsonSmokinghistoryPerformanceNumberTeamSum = json.getString("SmokinghistoryPerformanceNumberTeamSum");
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
-        // 取得した結果をテキストビューに入れるよ
-    	TextView TeamName = (TextView) useActivity.findViewById(R.id.textTeamName);
-    	TextView TeamPunishmentNumber = (TextView) useActivity.findViewById(R.id.textTeamPunishmentNumber);
-    	TextView SmokinghistoryPerformanceNumberTeamSum = (TextView) useActivity.findViewById(R.id.textSmokinghistoryPerformanceNumberTeamSum);
-    	TeamName.setText(jsonTeamName);
-    	TeamPunishmentNumber.setText(jsonTeamPunishmentNumber);
-    	SmokinghistoryPerformanceNumberTeamSum.setText(jsonSmokinghistoryPerformanceNumberTeamSum);
-    	//これで、表示されてるはず！
-        return;
+    	return;
     }
 
 }
